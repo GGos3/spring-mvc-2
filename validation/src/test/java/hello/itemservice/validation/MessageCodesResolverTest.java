@@ -18,4 +18,16 @@ public class MessageCodesResolverTest {
         Arrays.stream(messageCodes).forEach(a -> System.out.println("messageCode = " + a));
         Assertions.assertThat(messageCodes).containsExactly("required.item", "required");
     }
+
+    @Test
+    void messageCodeResolverField() {
+        String[] messageCodes = codesResolver.resolveMessageCodes("required", "item", "itemName", String.class);
+
+        Assertions.assertThat(messageCodes).containsExactly(
+                "required.item.itemName",
+                "required.itemName",
+                "required.java.lang.String",
+                "required"
+        );
+    }
 }
